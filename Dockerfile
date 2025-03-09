@@ -43,7 +43,7 @@ RUN set -ex; \
 	podman --help >/dev/null; \
 	! ldd /usr/local/bin/podman
 RUN set -ex; \
-	CGO_ENABLED=0 make quadlet BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
+	CGO_ENABLED=0 make bin/quadlet BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
 	mkdir -p /usr/local/lib/podman; \
 	mv bin/quadlet /usr/local/lib/podman/quadlet; \
 	! ldd /usr/local/lib/podman/quadlet

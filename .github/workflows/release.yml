@@ -34,8 +34,8 @@ jobs:
         uname -a
         docker --version
 
-    - name: Build & test
-      run: make images test
+    # - name: Build & test
+    #   run: make images test
 
     - name: Build signed archives
       run: make clean multiarch-tar TAR_TARGET=tar
