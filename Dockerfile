@@ -43,6 +43,11 @@ RUN set -ex; \
 	podman --help >/dev/null; \
 	! ldd /usr/local/bin/podman
 RUN set -ex; \
+	CGO_ENABLED=0 make bin/quadlet BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
+	mkdir -p /usr/local/lib/quadlet; \
+	mv bin/quadlet /usr/local/lib/podman/quadlet; \
+	! ldd /usr/local/lib/podman/quadlet
+RUN set -ex; \
 	CGO_ENABLED=0 make bin/rootlessport BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
 	mkdir -p /usr/local/lib/podman; \
 	mv bin/rootlessport /usr/local/lib/podman/rootlessport; \
@@ -155,6 +160,7 @@ LABEL maintainer="Max Goltzsche <max.goltzsche@gmail.com>"
 RUN apk add --no-cache tzdata ca-certificates
 COPY --from=conmon /conmon/bin/conmon /usr/local/lib/podman/conmon
 COPY --from=podman /usr/local/lib/podman/rootlessport /usr/local/lib/podman/rootlessport
+COPY --from=podman /usr/local/lib/podman/quadlet /usr/local/lib/podman/quadlet
 COPY --from=podman /usr/local/bin/podman /usr/local/bin/podman
 COPY --from=passt /passt/bin/ /usr/local/bin/
 COPY --from=netavark /netavark/target/release/netavark /usr/local/lib/podman/netavark
