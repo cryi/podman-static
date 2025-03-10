@@ -116,7 +116,7 @@ tar: .podman-from-container
 	mkdir -p $(ASSET_DIR)/etc $(ASSET_DIR)/usr/local
 	cp -r $(IMAGE_ROOTFS)/etc/containers $(ASSET_DIR)/etc/containers
 	cp -r $(IMAGE_ROOTFS)/usr/local/lib $(ASSET_DIR)/usr/local/lib
-        cp -r $(IMAGE_ROOTFS)/usr/local/libexec $(ASSET_DIR)/usr/local/libexec
+	cp -r $(IMAGE_ROOTFS)/usr/local/libexec $(ASSET_DIR)/usr/local/libexec
 	cp -r $(IMAGE_ROOTFS)/usr/local/bin $(ASSET_DIR)/usr/local/bin
 	cp README.md $(ASSET_DIR)/
 
