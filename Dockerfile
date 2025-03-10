@@ -160,7 +160,7 @@ LABEL maintainer="Max Goltzsche <max.goltzsche@gmail.com>"
 RUN apk add --no-cache tzdata ca-certificates
 COPY --from=conmon /conmon/bin/conmon /usr/local/lib/podman/conmon
 COPY --from=podman /usr/local/lib/podman/rootlessport /usr/local/lib/podman/rootlessport
-COPY --from=podman /usr/local/lib/podman/quadlet /usr/local/lib/podman/quadlet
+COPY --from=podman /usr/local/libexec/podman/quadlet /usr/local/libexec/podman/quadlet
 COPY --from=podman /usr/local/bin/podman /usr/local/bin/podman
 COPY --from=passt /passt/bin/ /usr/local/bin/
 COPY --from=netavark /netavark/target/release/netavark /usr/local/lib/podman/netavark
