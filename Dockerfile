@@ -43,9 +43,10 @@ RUN set -ex; \
 	podman --help >/dev/null; \
 	! ldd /usr/local/bin/podman
 RUN set -ex; \
-	CGO_ENABLED=0 make bin/quadlet BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
-	mv bin/quadlet /usr/local/bin/quadlet; \
-	! ldd /usr/local/bin/quadlet
+	CGO_ENABLED=0 make bin/quadlet LDFLAGS_PODMAN="-s -w -extldflags '-static'" BUILDTAGS='${PODMAN_BUILDTAGS}'; \
+	mkdir -p /usr/local/libexec/podman; \
+        mv bin/quadlet /usr/local/libexec/podman/quadlet; \
+	! ldd /usr/local/libexec/podman/quadlet
 RUN set -ex; \
 	CGO_ENABLED=0 make bin/rootlessport BUILDFLAGS=" -mod=vendor -ldflags=\"-s -w -extldflags '-static'\""; \
 	mkdir -p /usr/local/lib/podman; \
